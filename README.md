@@ -1,12 +1,11 @@
 # hw5-team-19
 
-
+ISA525700 Computer Vision for Visual Effects<br/>Assignment 5: Generate the multi-view 3D visual effects.<br/>Team 19 
+===
 
 # Abstract
 本文延續HW4以ORB模型作為影像特徵提取(Feature extration)與尋找配對(Matching)最佳化，進行三種前後影像景動態實驗，觀察3D影像效果。
-ISA525700 Computer Vision for Visual Effects
-Assignment 5: Generate the multi-view 3D visual effects.
-Team 19 
+
 Keyword: 動態, 3D視覺, ORB, SIFT, SURF.
 
 
@@ -115,9 +114,9 @@ Item	Ex1	Ex2	Ex3
 仿射(Affine)			
 
 
-
-
 # Reference
-[1] ORB, https://docs.opencv.org/3.1.0/d1/d89/tutorial_py_orb.html
-[2] SIFT與SURF, https://docs.opencv.org/3.4.0/df/dd2/tutorial_py_surf_intro.html
-[3] Motion Stills – Create beautiful GIFs from Live Photos, https://ai.googleblog.com/2016/06/motion-stills-create-beautiful-gifs.html
+- [1] ORB, https://docs.opencv.org/3.1.0/d1/d89/tutorial_py_orb.html
+- [2] SIFT與SURF, https://docs.opencv.org/3.4.0/df/dd2/tutorial_py_surf_intro.html
+- [3] Motion Stills – Create beautiful GIFs from Live Photos, https://ai.googleblog.com/2016/06/motion-stills-create-beautiful-gifs.html
+
+
