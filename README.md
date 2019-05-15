@@ -148,13 +148,10 @@ Motion Stills[2]是一種虛擬相機鏡頭技術，將攝影穩定技術，讓�
 
 
 ## Example 2-2:Stop motion
-
 ### Concept
-
 實驗2-2為延續Stop motion研究。本次實驗為在室外之前景與背景旋動，中視景揮動之運動模型，觀察對產生3D視覺效果是否顯著。
 
 ### Experiment
-
 我們在一處湖畔景處取景為本實驗背景，前景以知名人物小小兵為主角，嘗試建立3D動態視景圖。如下圖，以ORB找出最佳Matching，小小兵照明亮度非常好，Smart的ORB辨識到小小兵的頭部處與背景的落地窗框架，為最佳Matching，同時應為最佳旋動軸心。
 
 ![](https://i.imgur.com/YvIznsg.png)
@@ -166,7 +163,8 @@ Motion Stills[2]是一種虛擬相機鏡頭技術，將攝影穩定技術，讓�
 |![](https://i.imgur.com/50WxRU8.jpg)|![](https://i.imgur.com/m3MiYPG.jpg)|![](https://i.imgur.com/Lvugu1m.jpg)|
 
 影片是前景與背景同步連動之模型，配合鋁管的揮動。
-![](https://i.imgur.com/Me9UIDQ.gif)
+![](https://i.imgur.com/4VLXL0j.gif)
+
 
 ### Analysis 
 本次實驗之研究發現如下：
@@ -199,23 +197,29 @@ Motion Stills[2]是一種虛擬相機鏡頭技術，將攝影穩定技術，讓�
 |--|--|--|
 |![](https://i.imgur.com/zJ5WFWp.jpg)|![](https://i.imgur.com/6Dcs43x.jpg)|![](https://i.imgur.com/znGc4be.jpg)|
 
-這是我們製作靜態背景對雙前景物，惡搞情侶頭髮，希望呈現樂趣效果，也觀察３Ｄ立體效果。
+這是我們製作靜態背景對雙前景物，主題為什麼風把我們頭髮吹亂了!惡搞情侶頭髮，希望呈現娛樂效果，也觀察３Ｄ立體效果。
 
 ![](https://i.imgur.com/yXHcp26.gif)
 
+### Analysis
+由於本實驗3-1為背景不動，經過ORB的Matching確認，疊圖對焦效果絕佳。經觀察後，所得研究發現:
 
-
-### Analysis 
+- 中視景使用最少運算效能，呈現最佳3D效果。
+- 前後景凝結靜態，傳達出近中遠，因此呈現絕佳電腦視覺3D效果。
 
 ### discussion
-
+本實驗後，所得結果如下:
+- 中視景使用最少運算效能資源，呈現3D視覺效果顯著。
+- 前後景凝結靜態，傳達出近中遠，呈現3D視覺效果顯著。
 
 ## Example 3_2:Live photo
 
 ### Concept
-
+實驗3-2，延續Live photo科技，探討前中後三視景連動下，對於生3D視覺效果是否顯著?
 
 ### Experiment
+
+本次實驗素材以海岸小港口為背景，前景為正妹為主角，搭配背景海水波浪與長榮客機，建立三視景連動的3D立體視覺效果。如下圖，以ORB找出最佳Matching，背景照明亮度非常好，Smart的ORB辨識到多處背景物，如女主角的腳與港口地板，為最佳Matching。
 
 ![](https://i.imgur.com/foWszh2.png)
 
@@ -224,27 +228,39 @@ Motion Stills[2]是一種虛擬相機鏡頭技術，將攝影穩定技術，讓�
 |--|--|--|
 |![](https://i.imgur.com/6BmVEAo.jpg)|![](https://i.imgur.com/WIia2Ne.jpg)|![](https://i.imgur.com/8iid5QO.jpg)|
 
+下列影片是海景波浪與美少女長髮風吹飄逸。
 ![](https://i.imgur.com/R7jujKp.gif)
-
+下列影片是加入飛機飛過上空。
 ![](https://i.imgur.com/SvS5bSr.gif)
 
 ### Analysis 
+由於本實驗3-2之兩項小實驗為:
+- 在前景、背景連動下，觀察3D呈現效果。
+- 在前景、背景與中視景三者連動下，觀察3D呈現效果。。
+
+經過ORB的Matching確認，疊圖對焦效果絕佳。經觀察後，所得研究發現:
+- 在前景、背景連動下，因前景與背景距離為同區域，呈現3D效果不顯著。
+- 在前景、背景與中視景三者連動下，因產生視差，呈現絕佳電腦視覺3D效果。
 
 ### discussion
-
+本實驗後，所得結果如下:
+- 在前景、背景連動下，呈現3D視覺效果不顯著。
+- 在前景、背景與中視景三者連動下，傳達出近遠的視差，呈現3D視覺效果顯著。
 
 # Conclusion
+本次實驗後，提出結論如下:
+- 本文在ORB模型對應Motion parallax、Stop motion、Live photo等三項研究方法，觀察得出視覺效果評比如下:
 
-|Item|Ex1|Ex2|Ex3|
+|Item|Motion parallax|Stop motion|Live photo|
 |---|---|---|---|
-|時間(Time)|			
-|照明(Illumination)|			
-|縮放比例(Scale)|			
-|轉譯(Translation)|			
-|模糊(Blur)|			
-|旋轉(Rotation)|			
-|仿射(Affine)|
+|照明(Illumination)|高|低|高|				
+|縮放比例(Scale)|無縮放比例|高|低|			
+|轉譯(Translation)|高|低|高|			
+|模糊(Blur)|高|低|中|			
+|旋轉(Rotation)|無旋轉|高|中|			
+|仿射(Affine)|低|高|中|	
 
+- 本文經過實驗後，提出一種多視軸建立3D視覺運動模型最佳化，期以解決在影像中，前景、中視景、背景的多物體空間真實呈現問題。
 
 # Reference
 - [1] ORB, https://docs.opencv.org/3.1.0/d1/d89/tutorial_py_orb.html
