@@ -4,19 +4,23 @@ ISA525700 Computer Vision for Visual Effects<br/>Assignment 5: Generate the mult
 ===
 
 # Abstract
-本文延續HW4以ORB模型作為影像特徵提取(Feature extration)與尋找配對(Matching)最佳化，進行三種前後影像景動態實驗，觀察3D影像效果。
+本文延續HW4以ORB模型作為影像特徵提取(Feature extration)與尋找配對(Matching)最佳化，進行三種前後影像多視景動靜態實驗，觀察3D影像效果。
 
-Keyword: 動態, 3D視覺, ORB, SIFT, SURF.
+Keyword: 多視景, ORB
 
 
 # Table of Contents
-
+1. [Introduction](#Introduction)
+2. [Method](#Method)
+3. [Result](#Result) 
+4. [Conclusion](#Conclusion)
+5. [Reference](#Reference)
 
 # Introduction
 在上次作業中，採用OpenCV執行影像之間的特徵提取與匹配。在本文的實驗中，我們延續此技術生成多視圖3D立體效果，例如運動視差與停止動作效果。本文實作目標為
--自拍多視圖、顯示不同影像間的對齊結果。
--產生多視圖3D效果。
--創意發想方式，輔以後製軟體進形影像處理增強影像效果。
+- 自拍多視圖、顯示不同影像間的對齊結果。
+- 產生多視圖3D效果。
+- 創意發想方式，輔以後製軟體進形影像處理增強影像效果。
 本實驗在影像之「辨識、旋轉、照明與合理縮放比例」等為基礎條件下，進行評估效能。本實驗提出可視化呈現成果，顯示辨識到影像特徵與其它影像最佳配對，可解決程式上的問題。並採用ORB模型技術取樣特徵檔，並比較不同結果。我們在室內外拍攝一系列影像，在雲端採用GPU運算執行ORB模型，顯示兩個影像間的特徵辨識與配對結果，並且執行影像對齊，依作業目的產生前後景變化3D視覺效果。
 
 
@@ -39,84 +43,209 @@ BRIEF具有一個重要特性，即每個位特徵具有較大的方差，平均
 對於描述符匹配(descriptor matching)，採用改進傳統LSH的多探測LSH。使得ORB比SURF快的多，SIFT和ORB描述符比SURF更好。結論為ORB是用於全景拼接等的低功率設備的不錯選擇。
 
 
-## SIFT與SURF
-
-在比較模型方法上，我們採用SIFT與SURF[2]，
-
-在SIFT模型中，Lowe此採用高斯差分近似高斯的發普拉斯轉換，尋找尺度空間。SURF更進一步，用Box Filter趨近LoG。如下圖表示，這種近似法最大優點為借助積分影像可輕易運算出Box Filter的卷積，同時亦可針對不同尺度平行完成。此外SURF仰賴Hessian矩陣的尺度和位置的行列式。
- 
- 
-
-對於方向分配，SURF在水平與垂直方向係採用小波響應，對於大小在6s範圍內的鄰近區域，足夠高斯量使用它。然後繪製下圖中的空間中，透過計算角度60度的滑動定向窗口內所有響應總和來估計主導定向。有趣的是，小波響應可以容易使用積分影像找到任何影像縮放。對於不需要旋轉影像處理，無須找到影像定位，加速影像處理過程。SURF提供Upright-SURF與U-SURF兩項功能，可以提高速度，並且可以達到±15。OpenCV則支援兩者，取決於旗標(flag)與直立(upright)。如果為0，則計算方向。如果為1，則不計算方向並且速度更快。
-
- 
-
-
-
 ## Motion Stills – Create beautiful GIFs from Live Photos
 
-Motion Stills[3]是一種虛擬相機鏡頭技術，將攝影穩定技術，讓背景凝結成靜態方式，前景動態，後以製作gif檔，影片變得生動。
+Motion Stills[2]是一種虛擬相機鏡頭技術，將攝影穩定技術，讓背景凝結成靜態方式，前景動態，後以製作gif檔，影片變得生動。
 
 將流水剪輯與組合，產生身臨其境於水流體驗。可以使用演算法以線性程式計算虛擬鏡頭路徑，路鏡經過優化，重新製作影片，產生背景靜止不動與電影平移消除抖動影片效果。這項技術將挑戰手機影片如同資料中心運算速度。透過時間採樣、運動參數，以及Google Research的custom linear solver與GLOP等技術，實現40倍的加速。低分辨率扭曲紋理技術執行GPU渲染，可以加速與節省儲存空間，如同影像遊戲。
 
 循環播放，短片非常適合建立循環播放，方法是確定最佳起始與終點。為保持循環播放背景穩定，將前景元素遮住重要的部份。方法為時間一致下，將運動矢量分為離出前後景，運動模型由簡單到複雜。
 
+# Result
 
-# Example#1. Motion parallax
+## Example 1:Motion parallax
 
-## Concept
-	 
+### Concept
 
-## Experiment
+實驗1為探討運動視差(Motion parallax)，產生3D視覺效果。前景靜態，背景動態實驗，觀察對於電腦視覺3D效果是否顯著影響。
 
+### Experiment
 
-## Analysis 
+我們在戶外一處景處最佳景點，拍攝花圃中，風動視景作為背景。前景以知名人物小小兵為主角，嘗試建立3D動態視景圖。如下圖，以ORB找出最佳Matching，在室外光亮處，Matching效果非常佳。但小小兵照明亮度非常好，Smart的ORB辨識到小小兵的眼睛處，為最佳Matching，同時應為最佳旋動軸心。
 
+|ORB|![](https://i.imgur.com/hXBbUjx.png)
 
-## Discussion
+經實驗後，確認如下圖３張影格，以最少資源與最完美呈現。
 
-
-# Example#2. Stop motion
-
-## Concept
-
-
-## xperiment
+|Frame 1|Frame 2|Frame 3|
+|--|--|--|
+|![](https://i.imgur.com/rsQEqUz.jpg)|![](https://i.imgur.com/TNqeqPz.jpg)|![](https://i.imgur.com/RnTogFg.jpg)|
 
 
-## Analysis 
+經ORB確認好最佳Matchig與最佳旋動軸心後，如下三張影格。
+以軸心為背景作動態選旋動，產生最佳3D立體動態效果。但是如下圖所示，小小兵卻呈現漂浮於空中。
+![](https://i.imgur.com/OZz0xHp.gif)
 
-## discussion
-
-
-# Example#3. Live photo
-
-## Concept
+經過多次實驗後，決定增加背景靜態部份。
+![](https://i.imgur.com/kDuz5rv.gif)
 
 
-## Experiment
+### Analysis 
+實驗一共實驗兩種，第一為前景靜態不動，背景動態風動，產生運動視差。第二為深入探討背景之動態與靜態同時呈現，是否有不同效果。
+
+### Discussion
+經過觀察實驗結果、討論與他人客觀分享評比後，背景動態與前景靜態，真的產生視覺的運動視差(Motion parallax)達到3D立體效果完美呈現。
 
 
-## Analysis 
+## Example 2-1:Stop motion
 
-## discussion
+### Concept
+實驗2-1，目的探討視覺暫留(Stop motion)，產生3D視覺效果。本次實驗共計三項:
+
+- 1B_2_1F:背景旋動對單一前景物(Object)，是否對３Ｄ視覺效果有顯著影響。 。 
+- 1B_2_2F:背景旋動對雙前景物(Object)，模擬多前景物，是否對３Ｄ視覺效果有顯著影響。 。 
+- 1B_2_2F:背景旋動對雙前景物(Object)，增加中視景，觀察空間中移動與自旋融合運動模型，是否對３Ｄ視覺效果有顯著影響。 
+
+
+### Experiment
+
+我們在NTHU校園內一角，拍攝投影影布為背景。前景以知名人物小小兵為主角，嘗試建立3D動態視景圖。如下圖，以ORB找出最佳Matching，小小兵照明亮度非常好，Smart的ORB辨識到小小兵的眼睛與身體處，為最佳Matching，同時應為最佳旋動軸心。
+|ORB|![](https://i.imgur.com/lS1gSlV.png)
+
+經實驗後，確認如下圖５張影格，以最少資源與最完美呈現。
+|Frame 1|Frame 2|Frame 3|
+|--|--|--|
+|![](https://i.imgur.com/0sQ7Exk.jpg)|![](https://i.imgur.com/UcZ8a0V.jpg)|![](https://i.imgur.com/zIWFIEQ.jpg)|
+
+|Frame 4|Frame 5|
+|--|--|
+|![](https://i.imgur.com/0YdGfAD.jpg)|![](https://i.imgur.com/7pRSV7M.jpg)|
+
+這是我們製作單背景對單前景物的影片。
+
+|1B_2_1F|
+|--|
+|![](https://i.imgur.com/D9g3Bnk.gif)|
+
+這是我們製作單背景對雙前景物的影片。
+
+|1B_2_2F|
+|--|
+|![](https://i.imgur.com/Dt61S7f.gif)|
+
+這是我們製作單背景對雙前景物，以及增加中視景的影片。中視景為酷酷的足球，它打中小小兵，搞笑一下！也觀察３Ｄ立體效果。
+
+|1B_2_2F|
+|--|
+|![](https://i.imgur.com/cbBvrea.gif)|
+
+### Analysis 
+本次實驗進行三項後，研究發現如下：
+- 發現增加前景物數目，對３Ｄ立體效果顯著。
+- 發現增加光環，對３Ｄ立體效果顯著。
+- 發現背景黑色，對於背景旋動效果非常顯著！
+- 發現背景物，面積越大，圖形運算效能資源需求越大，需要ＧＰＵ運算支援。
+- 發現前景越清晰，背景物越模糊，對於視覺暫留之３Ｄ立體效果顯著。
+
+### discussion
+經過如上結果分析，可得小結：
+- 前景物增加，運動模型越複雜，３Ｄ立體效果呈現正顯著。
+- 增加光環，並調節尺寸下，３Ｄ立體效果呈現正顯著。
+- 背景照明光度越暗，對於視覺暫留之３Ｄ立體效果顯著。
+- 背景物之面積越大，３Ｄ運算效能需求越高，是否有演算法模型可以最佳化處理。
+- 前景清晰，背景模糊，對於視覺暫留之３Ｄ立體效果顯著。
+如上多項珍貴的研究發現，為本次實驗重要心血，分享給各位。
+
+
+## Example 2-2:Stop motion
+
+### Concept
+
+實驗2-2為延續Stop motion研究。本次實驗為在室外之前景與背景旋動，中視景揮動之運動模型，觀察對產生3D視覺效果是否顯著。
+
+### Experiment
+
+我們在一處湖畔景處取景為本實驗背景，前景以知名人物小小兵為主角，嘗試建立3D動態視景圖。如下圖，以ORB找出最佳Matching，小小兵照明亮度非常好，Smart的ORB辨識到小小兵的頭部處與背景的落地窗框架，為最佳Matching，同時應為最佳旋動軸心。
+
+![](https://i.imgur.com/YvIznsg.png)
+
+經實驗後，確認如下圖３張影格，以最少資源與最完美呈現。
+
+|Frame 1|Frame 2|Frame 3|
+|--|--|--|
+|![](https://i.imgur.com/50WxRU8.jpg)|![](https://i.imgur.com/m3MiYPG.jpg)|![](https://i.imgur.com/Lvugu1m.jpg)|
+
+影片是前景與背景同步連動之模型，配合鋁管的揮動。
+![](https://i.imgur.com/Me9UIDQ.gif)
+
+### Analysis 
+本次實驗之研究發現如下：
+
+- 背景深度越高，對３Ｄ立體效果越顯著。
+- 前景物越清晰，對３Ｄ立體效果越顯著。
+- 前景物鋁棒揮動，長短不一時，對３Ｄ立體效果越顯著。
+
+### discussion
+經過如上結果分析，可得小結：
+
+- 背景深度越高，確實對３Ｄ立體效果越顯著。
+- 前景物越清晰，確實對３Ｄ立體效果越顯著。
+- 前景物之尺寸不同時，確實對３Ｄ立體效果越顯著。
+
+如上多項珍貴的研究發現，為本次實驗重要心血，分享給各位。
+
+## Example 3_1:Live photo
+
+### Concept
+
+實驗3-1，Live photo是製作動態桌布與拍攝酷炫動態照片的影像科技，研究探討是否對產生3D視覺效果顯著。我們以動態背景與背景物與否，觀察3D視覺效果。
+
+### Experiment
+我們在一處湖畔景處取景為本實驗背景，前景以情侶為男女主角，嘗試建立3D動態視景圖。如下圖，以ORB找出最佳Matching，背景照明亮度非常好，Smart的ORB辨識到多處背景物，如樹與落地燈，為最佳Matching。
+![](https://i.imgur.com/y7s1R3j.png)
+
+經實驗後，確認如下圖3張影格，以最少資源與最完美呈現。
+|Frame 1|Frame 2|Frame 3|
+|--|--|--|
+|![](https://i.imgur.com/zJ5WFWp.jpg)|![](https://i.imgur.com/6Dcs43x.jpg)|![](https://i.imgur.com/znGc4be.jpg)|
+
+這是我們製作靜態背景對雙前景物，惡搞情侶頭髮，希望呈現樂趣效果，也觀察３Ｄ立體效果。
+
+![](https://i.imgur.com/yXHcp26.gif)
+
+
+
+### Analysis 
+
+### discussion
+
+
+## Example 3_2:Live photo
+
+### Concept
+
+
+### Experiment
+
+![](https://i.imgur.com/foWszh2.png)
+
+經實驗後，確認如下圖3張影格，以最少資源與最完美呈現。
+|Frame 1|Frame 2|Frame 3|
+|--|--|--|
+|![](https://i.imgur.com/6BmVEAo.jpg)|![](https://i.imgur.com/WIia2Ne.jpg)|![](https://i.imgur.com/8iid5QO.jpg)|
+
+![](https://i.imgur.com/R7jujKp.gif)
+
+![](https://i.imgur.com/SvS5bSr.gif)
+
+### Analysis 
+
+### discussion
 
 
 # Conclusion
 
-Item	Ex1	Ex2	Ex3
-時間(Time)			
-照明(Illumination)			
-縮放比例(Scale)			
-轉譯(Translation)			
-模糊(Blur)			
-旋轉(Rotation)			
-仿射(Affine)			
+|Item|Ex1|Ex2|Ex3|
+|---|---|---|---|
+|時間(Time)|			
+|照明(Illumination)|			
+|縮放比例(Scale)|			
+|轉譯(Translation)|			
+|模糊(Blur)|			
+|旋轉(Rotation)|			
+|仿射(Affine)|
 
 
 # Reference
 - [1] ORB, https://docs.opencv.org/3.1.0/d1/d89/tutorial_py_orb.html
-- [2] SIFT與SURF, https://docs.opencv.org/3.4.0/df/dd2/tutorial_py_surf_intro.html
-- [3] Motion Stills – Create beautiful GIFs from Live Photos, https://ai.googleblog.com/2016/06/motion-stills-create-beautiful-gifs.html
-
-
+- [2] Motion Stills – Create beautiful GIFs from Live Photos, https://ai.googleblog.com/2016/06/motion-stills-create-beautiful-gifs.html
