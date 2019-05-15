@@ -224,12 +224,14 @@ Motion Stills[2]是一種虛擬相機鏡頭技術，將攝影穩定技術，讓�
 ![](https://i.imgur.com/foWszh2.png)
 
 經實驗後，確認如下圖3張影格，以最少資源與最完美呈現。
+
 |Frame 1|Frame 2|Frame 3|
 |--|--|--|
 |![](https://i.imgur.com/6BmVEAo.jpg)|![](https://i.imgur.com/WIia2Ne.jpg)|![](https://i.imgur.com/8iid5QO.jpg)|
 
 下列影片是海景波浪與美少女長髮風吹飄逸。
 ![](https://i.imgur.com/R7jujKp.gif)
+
 下列影片是加入飛機飛過上空。
 ![](https://i.imgur.com/SvS5bSr.gif)
 
